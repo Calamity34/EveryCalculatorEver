@@ -1,30 +1,22 @@
-var readline = require('readline');
-var rd = readline.createInterface({
+var rd = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
 })
-var data = {
-  calculate: {
-    number1: 0,
-    number2: 0,
-    act: ""
-  },
-  level: 0
-}
+var data = [0, 0, "", 0]
 process.stdout.write("First number: ");
-rd.on('line', ln => {
-  if(data.level == 2){
-    data.calculate.act = ln
-    eval(`var result = ${data.calculate.number1} ${data.calculate.act} ${data.calculate.number2}; console.log("Result: " + result);`);
+rd.on('line', (ln) => {
+  if(data[3] == 2){
+    data[2] = ln
+    eval(`var result = ${data[0]} ${data[2]} ${data[1]}; console.log("Result: " + result); process.exit(0)`);
   }
-  if(data.level == 1){
-    data.calculate.number2 = parseInt(ln);
-    data.level++
+  if(data[3] == 1){
+    data[1] = parseInt(ln);
+    data[3]++
     process.stdout.write("Act: ");
   }
-  if(data.level == 0){
-    data.calculate.number1 = parseInt(ln);
-    data.level++
+  if(data[3] == 0){
+    data[0] = parseInt(ln);
+    data[3]++
     process.stdout.write("Second number: ");
   }
 })
